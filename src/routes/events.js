@@ -3,6 +3,7 @@ const getEvents = require("../services/events/getEvents.js");
 const createEvent = require("../services/events/createEvent.js");
 const getEventById = require("../services/events/getEventById.js");
 const updateEvent = require("../services/events/updateEvent.js");
+const deleteEvent = require("../services/events/deleteEvent.js");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -65,14 +66,14 @@ router.put("/:id", (req, res) => {
   );
   res.status(200).json(updatedEvent);
 });
-/*
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  const deletedUserId = deleteUser(id);
+  const deletedEventId = deleteEvent(id);
 
   res.status(200).json({
-    message: `User with id ${deletedUserId} was deleted!`,
+    message: `User with id ${deletedEventId} was deleted!`,
   });
-});*/
+});
 
 module.exports = router;
