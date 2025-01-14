@@ -1,6 +1,7 @@
 const express = require("express");
 const getEvents = require("../services/events/getEvents.js");
 const createEvent = require("../services/events/createEvent.js");
+const getEventById = require("../services/events/getEventById.js");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -31,13 +32,13 @@ router.post("/", (req, res) => {
   );
   res.status(201).json(newEvent);
 });
-/*
+
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  const user = getUserById(id);
-  res.status(200).json(user);
+  const event = getEventById(id);
+  res.status(200).json(event);
 });
-
+/*
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { username, password, name, image } = req.body;
