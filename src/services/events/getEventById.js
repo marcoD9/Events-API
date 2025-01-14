@@ -12,7 +12,7 @@ const getEventById = (id) => {
   const event = eventsData.events.find((event) => event.id === id);
 
   if (!event) {
-    throw new Error();
+    throw new Error("Event not found", error);
   }
 
   return event;
