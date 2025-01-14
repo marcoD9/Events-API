@@ -72,7 +72,7 @@ router.delete("/:id", (req, res) => {
   const deletedEventId = deleteEvent(id);
 
   res.status(200).json({
-    message: `User with id ${deletedEventId} was deleted!`,
+    message: `Event with id ${deletedEventId} was deleted!`,
   });
 });
 
