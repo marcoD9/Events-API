@@ -5,6 +5,7 @@ const express = require("express");
 const Sentry = require("@sentry/node");
 const usersRouter = require("./routes/users.js");
 const eventsRouter = require("./routes/events.js");
+const categoriesRouter = require("./routes/categories.js");
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", usersRouter);
 app.use("/events", eventsRouter);
+app.use("/categories", categoriesRouter);
 // Add this after all routes,
 // but before any and other error-handling middlewares are defined
 Sentry.setupExpressErrorHandler(app);
