@@ -4,14 +4,16 @@ const createEvent = require("../services/events/createEvent.js");
 const getEventById = require("../services/events/getEventById.js");
 const updateEvent = require("../services/events/updateEvent.js");
 const deleteEvent = require("../services/events/deleteEvent.js");
+const auth = require("../middleware/auth.js");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  const users = getEvents();
-  res.status(200).json(users);
+  const { title, location } = req.query;
+  const events = getEvents(title, location);
+  res.status(200).json(events);
 });
 
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const {
     title,
     description,
@@ -41,7 +43,7 @@ router.get("/:id", (req, res) => {
   res.status(200).json(event);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", auth, (req, res) => {
   const { id } = req.params;
   const {
     title,
@@ -67,7 +69,7 @@ router.put("/:id", (req, res) => {
   res.status(200).json(updatedEvent);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   const { id } = req.params;
   const deletedEventId = deleteEvent(id);
 
