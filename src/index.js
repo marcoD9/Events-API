@@ -8,9 +8,12 @@ const usersRouter = require("./routes/users.js");
 const eventsRouter = require("./routes/events.js");
 const categoriesRouter = require("./routes/categories.js");
 const loginRouter = require("./routes/login.js");
+const log = require("./middleware/logMiddleware.js");
 
 const app = express();
+// Global middleware
 app.use(express.json());
+app.use(log);
 // Add your routes, etc.
 app.get("/", (req, res) => {
   res.send("Hello world!");
