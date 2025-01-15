@@ -4,6 +4,7 @@ const createUsers = require("../services/users/createUsers.js");
 const getUserById = require("../services/users/getUserById.js");
 const updateUser = require("../services/users/updateUser.js");
 const deleteUser = require("../services/users/deleteUser.js");
+const auth = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
   res.status(200).json(users);
 });
 
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const { username, password, name, image } = req.body;
   const newUser = createUsers(username, password, name, image);
   res.status(201).json(newUser);
@@ -24,14 +25,14 @@ router.get("/:id", (req, res) => {
   res.status(200).json(user);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", auth, (req, res) => {
   const { id } = req.params;
   const { username, password, name, image } = req.body;
   const updatedUser = updateUser(id, username, password, name, image);
   res.status(200).json(updatedUser);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   const { id } = req.params;
   const deletedUserId = deleteUser(id);
 
