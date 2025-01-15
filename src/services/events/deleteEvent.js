@@ -8,11 +8,11 @@ const deleteEvent = (id) => {
   const index = eventsData.events.findIndex((event) => event.id === id);
 
   if (index === -1) {
-    throw new Error("User not found", error);
+    return null;
   }
 
-  eventsData.events.splice(index, 1);
-  return id;
-};
+  const deletedEvent = eventsData.events.splice(index, 1);
 
+  return deletedEvent;
+};
 module.exports = deleteEvent;

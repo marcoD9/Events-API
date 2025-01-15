@@ -8,7 +8,7 @@ const updateUser = (id, username, password, name, image) => {
   const user = usersData.users.find((user) => user.id === id);
 
   if (!user) {
-    throw new Error("User not found", error);
+    return null;
   }
 
   user.username = username ?? user.username;

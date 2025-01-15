@@ -11,7 +11,7 @@ const updateCategory = (id, name) => {
   category.name = category.name ?? name;
 
   if (!category) {
-    throw new Error("Category not found", error);
+    return null;
   }
   return category;
 };

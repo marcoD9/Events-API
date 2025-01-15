@@ -9,11 +9,12 @@ const deleteUser = (id) => {
   const index = usersData.users.findIndex((user) => user.id === id);
 
   if (index === -1) {
-    throw new Error("User not found", error);
+    return null;
   }
 
-  usersData.users.splice(index, 1);
-  return id;
+  const deleteUsers = usersData.users.splice(index, 1);
+
+  return deleteUsers;
 };
 
 module.exports = deleteUser;

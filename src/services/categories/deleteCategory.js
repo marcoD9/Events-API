@@ -8,9 +8,13 @@ const deleteCategory = (id) => {
   const index = categoriesData.categories.findIndex(
     (category) => category.id === id
   );
+  if (index === -1) {
+    return null;
+  }
 
-  categoriesData.categories.splice(index, 1);
-  return id;
+  const deletedCategory = categoriesData.categories.splice(index, 1);
+
+  return deletedCategory;
 };
 
 module.exports = deleteCategory;

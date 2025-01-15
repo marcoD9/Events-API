@@ -18,7 +18,7 @@ const updateEvent = (
   const event = eventsData.events.find((event) => event.id === id);
 
   if (!event) {
-    throw new Error("Event not found", error);
+    return null;
   }
 
   event.title = event.title ?? title;
