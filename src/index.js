@@ -9,6 +9,7 @@ const eventsRouter = require("./routes/events.js");
 const categoriesRouter = require("./routes/categories.js");
 const loginRouter = require("./routes/login.js");
 const log = require("./middleware/logMiddleware.js");
+const errorHandler = require("./middleware/errorHandler.js");
 
 const app = express();
 // Global middleware
@@ -27,6 +28,8 @@ app.use("/login", loginRouter);
 // Add this after all routes,
 // but before any and other error-handling middlewares are defined
 Sentry.setupExpressErrorHandler(app);
+// Error handling
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
