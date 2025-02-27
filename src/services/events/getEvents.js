@@ -7,6 +7,10 @@ const getEvents = async (title, location) => {
       title: title ? title : undefined,
       location: location ? location : undefined,
     },
+    include: {
+      // Include categories
+      categories: true,
+    },
   });
   return events;
 };
