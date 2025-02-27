@@ -1,25 +1,36 @@
 import { Router } from "express";
-import userData from "../data/users.json" assert { type: "json" };
+import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
 const router = Router();
+const prisma = new PrismaClient();
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const secretKey = process.env.AUTH_SECRET_KEY || "my-secret-key";
   const { username, password } = req.body;
-  const { users } = userData;
 
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username: username },
+    });
 
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials!" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials!" });
+    }
+
+    // Check if the password matches with the one in our database
+    if (password !== user.password) {
+      return res.status(400).json({ message: "Invalid credentials!" });
+    }
+
+    const token = jwt.sign({ userId: user.id }, secretKey);
+    res.status(200).json({ message: "Successfully logged in!", token });
+  } catch (error) {
+    console.error("An error ha occurred:", error);
+    res.status(500).json({ message: "An error ha occurred while logging in" });
+  } finally {
+    await prisma.$disconnect();
   }
-
-  const token = jwt.sign({ userId: user.id }, secretKey);
-
-  res.status(200).json({ message: "Successfully logged in!", token });
 });
 
 export default router;
