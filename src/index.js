@@ -1,7 +1,7 @@
 import express from "express";
 import * as Sentry from "@sentry/node";
 import "dotenv/config";
-
+import cors from "cors";
 import usersRouter from "./routes/users.js";
 import eventsRouter from "./routes/events.js";
 import categoriesRouter from "./routes/categories.js";
@@ -35,6 +35,12 @@ app.use(Sentry.Handlers.tracingHandler());
 // Global middleware
 app.use(express.json());
 app.use(log);
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://react-eventslist.netlify.app/"],
+  })
+);
 
 // Resource routes
 app.use("/users", usersRouter);
