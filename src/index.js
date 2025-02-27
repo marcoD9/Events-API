@@ -38,7 +38,7 @@ app.use(log);
 
 app.use(
   cors({
-    origin: "https://react-eventslist.netlify.app/",
+    origin: "https://react-eventslist.netlify.app",
   })
 );
 
