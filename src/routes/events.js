@@ -139,4 +139,26 @@ router.put("/:id", auth, async (req, res, next) => {
   notFoundErrorHandler;
 });
 
+router.patch("/:id", auth, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const event = await updateEventById(id, updateData);
+    if (event) {
+      res.status(200).send({
+        message: `Event with id ${id} successfully updated`,
+        event,
+      });
+    } else {
+      res.status(404).json({
+        message: `Event with id ${id} not found`,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+  notFoundErrorHandler;
+});
+
 export default router;
